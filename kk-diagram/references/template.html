@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0b1120;color:#e2e8f0;font-family:'Inter',sans-serif;width:1080px;height:3200px;position:relative;overflow:hidden}
+
+/* Subtle grid */
+body::before{content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(99,102,241,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,0.03) 1px,transparent 1px);
+  background-size:32px 32px}
+
+/* Very subtle orbs */
+.orb{position:absolute;border-radius:50%}
+.o1{width:600px;height:600px;background:radial-gradient(circle,rgba(99,102,241,0.06),transparent 70%);top:100px;right:-100px}
+.o2{width:500px;height:500px;background:radial-gradient(circle,rgba(34,211,238,0.05),transparent 70%);top:1200px;left:-100px}
+.o3{width:500px;height:500px;background:radial-gradient(circle,rgba(168,85,247,0.05),transparent 70%);top:2200px;right:-100px}
+
+.w{position:relative;z-index:1;padding:48px 44px}
+
+/* Header */
+.header{text-align:center;margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.header-badge{display:inline-block;padding:6px 16px;border-radius:6px;font-size:11px;letter-spacing:2px;font-weight:600;
+  background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#818cf8;margin-bottom:16px}
+.header h1{font-size:36px;font-weight:800;color:#f1f5f9;letter-spacing:-1px}
+.header p{font-size:14px;color:#64748b;margin-top:8px}
+
+/* Section */
+.sec{margin-bottom:36px}
+.sec-h{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.sec-num{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff}
+.sec-title{font-size:15px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.sec-line{flex:1;height:1px;background:rgba(255,255,255,0.06)}
+
+/* Architecture box */
+.arch{position:relative;padding:0}
+
+/* Node boxes - KodeKloud style: clean, labeled, consistent */
+.node{border-radius:12px;padding:20px;position:relative;display:flex;align-items:flex-start;gap:14px}
+.node-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.node-content h4{font-size:16px;font-weight:700;margin-bottom:3px}
+.node-content .tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600;letter-spacing:0.5px;margin-bottom:6px}
+.node-content p{font-size:12px;color:#94a3b8;line-height:1.5}
+
+/* Connection labels - KodeKloud signature */
+.conn{display:flex;align-items:center;justify-content:center;gap:8px;padding:8px 0;margin:4px 44px}
+.conn-line{flex:1;height:2px;border-radius:1px}
+.conn-label{font-size:10px;font-weight:600;letter-spacing:1px;white-space:nowrap;padding:3px 10px;border-radius:4px;background:rgba(0,0,0,0.3)}
+.conn-arrow{font-size:12px;color:#475569}
+
+/* Vertical connector */
+.v-conn{display:flex;flex-direction:column;align-items:center;margin:0 auto;padding:4px 0}
+.v-line{width:2px;height:20px;border-radius:1px}
+.v-label{font-size:10px;font-weight:600;letter-spacing:1px;padding:3px 12px;border-radius:4px;background:rgba(0,0,0,0.3);margin:4px 0}
+.v-arrow{font-size:14px}
+
+/* Agent grid */
+.agent-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* Color schemes */
+.n-gold{background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.2)}
+.n-gold .node-icon{background:rgba(251,191,36,0.15);color:#fbbf24}
+.n-gold h4{color:#fbbf24}
+.n-gold .tag{background:rgba(251,191,36,0.15);color:#fbbf24}
+
+.n-green{background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2)}
+.n-green .node-icon{background:rgba(16,185,129,0.15);color:#10b981}
+.n-green h4{color:#10b981}
+.n-green .tag{background:rgba(16,185,129,0.15);color:#10b981}
+
+.n-emerald{background:rgba(5,150,105,0.08);border:1px solid rgba(5,150,105,0.2)}
+.n-emerald .node-icon{background:rgba(5,150,105,0.15);color:#059669}
+.n-emerald h4{color:#34d399}
+.n-emerald .tag{background:rgba(5,150,105,0.15);color:#34d399}
+
+.n-amber{background:rgba(217,119,6,0.08);border:1px solid rgba(217,119,6,0.2)}
+.n-amber .node-icon{background:rgba(217,119,6,0.15);color:#d97706}
+.n-amber h4{color:#fbbf24}
+.n-amber .tag{background:rgba(217,119,6,0.15);color:#fbbf24}
+
+.n-blue{background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2)}
+.n-blue .node-icon{background:rgba(59,130,246,0.15);color:#3b82f6}
+.n-blue h4{color:#60a5fa}
+.n-blue .tag{background:rgba(59,130,246,0.15);color:#60a5fa}
+
+.n-purple{background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.2)}
+.n-purple .node-icon{background:rgba(139,92,246,0.15);color:#8b5cf6}
+.n-purple h4{color:#a78bfa}
+.n-purple .tag{background:rgba(139,92,246,0.15);color:#a78bfa}
+
+.n-gray{background:rgba(100,116,139,0.08);border:1px solid rgba(100,116,139,0.2)}
+.n-gray .node-icon{background:rgba(100,116,139,0.15);color:#94a3b8}
+.n-gray h4{color:#cbd5e1}
+.n-gray .tag{background:rgba(100,116,139,0.15);color:#cbd5e1}
+
+.n-pink{background:rgba(236,72,153,0.08);border:1px solid rgba(236,72,153,0.2)}
+.n-pink .node-icon{background:rgba(236,72,153,0.15);color:#ec4899}
+.n-pink h4{color:#f472b6}
+.n-pink .tag{background:rgba(236,72,153,0.15);color:#f472b6}
+
+.n-cyan{background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.2)}
+.n-cyan .node-icon{background:rgba(6,182,212,0.15);color:#06b6d4}
+.n-cyan h4{color:#22d3ee}
+.n-cyan .tag{background:rgba(6,182,212,0.15);color:#22d3ee}
+
+.n-violet{background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.2)}
+.n-violet .node-icon{background:rgba(124,58,237,0.15);color:#7c3aed}
+.n-violet h4{color:#a78bfa}
+.n-violet .tag{background:rgba(124,58,237,0.15);color:#a78bfa}
+
+/* Workflow timeline */
+.flow-steps{position:relative;padding-left:52px;margin-left:16px}
+.flow-steps::before{content:'';position:absolute;left:22px;top:12px;bottom:12px;width:3px;border-radius:2px;
+  background:linear-gradient(180deg,#10b981,#d97706,#06b6d4,#3b82f6,#8b5cf6)}
+.f-step{position:relative;padding:14px 20px;margin-bottom:14px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04)}
+.f-dot{position:absolute;left:-42px;top:18px;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:800;background:#0b1120;border:2.5px solid var(--c);color:var(--c)}
+.f-step h5{font-size:14px;font-weight:700;color:var(--c);margin-bottom:2px}
+.f-step .f-agents{font-size:11px;color:#94a3b8;font-family:'JetBrains Mono',monospace}
+.f-step .f-output{font-size:11px;color:#64748b;margin-top:4px}
+.f-step .f-output strong{color:#94a3b8}
+
+/* Commands */
+.cmd-list{display:flex;flex-direction:column;gap:8px}
+.cmd-row{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:10px;background:rgba(15,23,42,0.5);border:1px solid rgba(255,255,255,0.04)}
+.cmd-code{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600;min-width:170px}
+.cmd-desc{font-size:12px;color:#64748b;flex:1}
+.cmd-badge{font-size:9px;font-weight:600;letter-spacing:1px;padding:3px 8px;border-radius:4px;white-space:nowrap}
+
+/* Legend */
+.legend{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:20px;border-radius:12px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04)}
+.leg-item{display:flex;align-items:center;gap:8px;font-size:11px;color:#94a3b8}
+.leg-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+
+/* Stats */
+.stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:24px}
+.stat-card{text-align:center;padding:16px 8px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04)}
+.stat-val{font-size:28px;font-weight:900;letter-spacing:-1px}
+.stat-lbl{font-size:9px;color:#64748b;margin-top:2px;letter-spacing:2px;text-transform:uppercase}
+
+/* Footer */
+.foot{text-align:center;margin-top:28px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.04)}
+.foot p{font-size:12px;color:#475569;font-style:italic}
+.foot .sig{font-size:10px;color:#334155;letter-spacing:1.5px;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="o1 orb"></div><div class="o2 orb"></div><div class="o3 orb"></div>
+<div class="w">
+
+<div class="header">
+  <div class="header-badge">ARCHITECTURE DIAGRAM</div>
+  <h1>Mac Mini 1000× AI Flightdeck</h1>
+  <p>One orchestrator · Many specialized agents · Always-on 24/7 · Your laptop is just a thin client</p>
+</div>
+
+<!-- Section 1: Access Layer -->
+<div class="sec">
+  <div class="sec-h">
+    <div class="sec-num" style="background:#fbbf24;color:#78350f">1</div>
+    <span class="sec-title" style="color:#fbbf24">Access Layer</span>
+    <div class="sec-line"></div>
+  </div>
+  <div class="node n-gold" style="border-radius:12px">
+    <div class="node-icon">👤</div>
+    <div class="node-content">
+      <h4>You — Any Device, Anywhere</h4>
+      <span class="tag">THIN CLIENT</span>
+      <p>Laptop · Phone · Tablet · Browser · SSH · Telegram · Discord<br>All compute stays on the Mac Mini. You just send commands.</p>
+    </div>
+  </div>
+  <div class="v-conn">
+    <div class="v-line" style="background:rgba(251,191,36,0.3)"></div>
+    <div class="v-label" style="color:#fbbf24">message / command</div>
+    <div class="v-arrow" style="color:#fbbf24">▼</div>
+  </div>
+</div>
+
+<!-- Section 2: Orchestration Layer -->
+<div class="sec">
+  <div class="sec-h">
+    <div class="sec-num" style="background:#10b981">2</div>
+    <span class="sec-title" style="color:#10b981">Orchestration Layer</span>
+    <div class="sec-line"></div>
+  </div>
+  <div class="node n-green" style="border-radius:12px">
+    <div class="node-icon">⚡</div>
+    <div class="node-content">
+      <h4>OpenClaw — Central Orchestrator</h4>
+      <span class="tag">BRAIN</span>
+      <p>Routes tasks to the right AI model · Manages memory & context · Runs cron jobs & heartbeats<br>Handles multi-agent dispatch · Unified API for all channels · Tool execution engine</p>
+    </div>
+  </div>
+  <div class="v-conn">
+    <div class="v-line" style="background:rgba(16,185,129,0.3)"></div>
+    <div class="v-label" style="color:#10b981">dispatch to specialist</div>
+    <div class="v-arrow" style="color:#10b981">▼</div>
+  </div>
+</div>
+
+<!-- Section 3: AI Agent Layer -->
+<div class="sec">
+  <div class="sec-h">
+    <div class="sec-num" style="background:#6366f1">3</div>
+    <span class="sec-title" style="color:#818cf8">AI Agent Layer — Specialized Models</span>
+    <div class="sec-line"></div>
+  </div>
+  <div class="agent-grid">
+    <div class="node n-emerald">
+      <div class="node-icon">🏗️</div>
+      <div class="node-content">
+        <h4>ChatGPT</h4>
+        <span class="tag">ARCHITECT</span>
+        <p>System design · API contracts<br>Deep research · Documentation<br>High-level reasoning</p>
+      </div>
+    </div>
+    <div class="node n-amber">
+      <div class="node-icon">🔧</div>
+      <div class="node-content">
+        <h4>Claude Code</h4>
+        <span class="tag">REFACTORER</span>
+        <p>Repo-wide edits · Terminal flows<br>Multi-file refactors · Git ops<br>Full codebase context</p>
+      </div>
+    </div>
+    <div class="node n-blue">
+      <div class="node-icon">💎</div>
+      <div class="node-content">
+        <h4>Gemini</h4>
+        <span class="tag">IDE AGENT</span>
+        <p>Multi-file IDE flows<br>Tool integration · Image gen<br>Long context analysis</p>
+      </div>
+    </div>
+    <div class="node n-purple">
+      <div class="node-icon">✨</div>
+      <div class="node-content">
+        <h4>GitHub Copilot</h4>
+        <span class="tag">INLINE CODER</span>
+        <p>Autocomplete · Boilerplate<br>Micro-patterns · Glue code<br>Tab-to-accept workflow</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Section 4: Infrastructure Layer -->
+<div class="sec">
+  <div class="sec-h">
+    <div class="sec-num" style="background:#64748b">4</div>
+    <span class="sec-title" style="color:#94a3b8">Infrastructure Layer</span>
+    <div class="sec-line"></div>
+  </div>
+  <div class="agent-grid">
+    <div class="node n-gray">
+      <div class="node-icon">🔒</div>
+      <div class="node-content">
+        <h4>Local LLM</h4>
+        <span class="tag">PRIVATE</span>
+        <p>Offline processing · Sensitive data<br>No data leaves the Mac Mini</p>
+      </div>
+    </div>
+    <div class="node n-pink">
+      <div class="node-icon">🧠</div>
+      <div class="node-content">
+        <h4>Memory System</h4>
+        <span class="tag">PERSISTENCE</span>
+        <p>MEMORY.md · Daily notes<br>Project context · Preferences</p>
+      </div>
+    </div>
+    <div class="node n-cyan">
+      <div class="node-icon">⏰</div>
+      <div class="node-content">
+        <h4>Cron & Heartbeat</h4>
+        <span class="tag">AUTONOMOUS</span>
+        <p>Scheduled tasks · Health checks<br>Background processing 24/7</p>
+      </div>
+    </div>
+    <div class="node n-violet">
+      <div class="node-icon">📡</div>
+      <div class="node-content">
+        <h4>Channels</h4>
+        <span class="tag">I/O</span>
+        <p>Telegram · Discord · Signal<br>Multi-surface messaging</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Section 5: Daily Workflow -->
+<div class="sec">
+  <div class="sec-h">
+    <div class="sec-num" style="background:#ec4899">5</div>
+    <span class="sec-title" style="color:#f472b6">Daily Workflow — The 5-Step Loop</span>
+    <div class="sec-line"></div>
+  </div>
+  <div class="flow-steps">
+    <div class="f-step" style="--c:#10b981">
+      <div class="f-dot">1</div>
+      <h5>PLAN — Define the Architecture</h5>
+      <div class="f-agents">ChatGPT Deep Research + Gemini → spec.md</div>
+      <div class="f-output"><strong>Output:</strong> Feature spec, API contract, component tree</div>
+    </div>
+    <div class="f-step" style="--c:#d97706">
+      <div class="f-dot">2</div>
+      <h5>IMPLEMENT — Write the Code</h5>
+      <div class="f-agents">Claude Code + GitHub Copilot → feature branch</div>
+      <div class="f-output"><strong>Output:</strong> Working code, tests, documentation</div>
+    </div>
+    <div class="f-step" style="--c:#06b6d4">
+      <div class="f-dot">3</div>
+      <h5>TEST — Validate Everything</h5>
+      <div class="f-agents">OpenClaw runs test suite → triage report</div>
+      <div class="f-output"><strong>Output:</strong> Pass/fail matrix, bug tickets, coverage</div>
+    </div>
+    <div class="f-step" style="--c:#3b82f6">
+      <div class="f-dot">4</div>
+      <h5>REVIEW — Security & Performance Audit</h5>
+      <div class="f-agents">Gemini + ChatGPT → annotated diff</div>
+      <div class="f-output"><strong>Output:</strong> Security findings, perf recommendations, approval</div>
+    </div>
+    <div class="f-step" style="--c:#8b5cf6">
+      <div class="f-dot">5</div>
+      <h5>SHIP — Deploy & Monitor</h5>
+      <div class="f-agents">OpenClaw → production deploy → health monitor</div>
+      <div class="f-output"><strong>Output:</strong> Live deployment, monitoring alerts, repeat cycle ↩️</div>
+    </div>
+  </div>
+</div>
+
+<!-- Section 6: Command Palette -->
+<div class="sec">
+  <div class="sec-h">
+    <div class="sec-num" style="background:#f59e0b;color:#78350f">6</div>
+    <span class="sec-title" style="color:#fbbf24">Command Palette</span>
+    <div class="sec-line"></div>
+  </div>
+  <div class="cmd-list">
+    <div class="cmd-row">
+      <span class="cmd-code" style="color:#10b981">/plan-feature</span>
+      <span class="cmd-desc">ChatGPT Deep Research → architecture spec file</span>
+      <span class="cmd-badge" style="background:rgba(16,185,129,0.15);color:#10b981">PLAN</span>
+    </div>
+    <div class="cmd-row">
+      <span class="cmd-code" style="color:#d97706">/implement-spec</span>
+      <span class="cmd-desc">Claude Code → new branch with full repo context</span>
+      <span class="cmd-badge" style="background:rgba(217,119,6,0.15);color:#d97706">BUILD</span>
+    </div>
+    <div class="cmd-row">
+      <span class="cmd-code" style="color:#06b6d4">/test-and-report</span>
+      <span class="cmd-desc">OpenClaw automated suite → failure triage report</span>
+      <span class="cmd-badge" style="background:rgba(6,182,212,0.15);color:#06b6d4">TEST</span>
+    </div>
+    <div class="cmd-row">
+      <span class="cmd-code" style="color:#3b82f6">/review-diff</span>
+      <span class="cmd-desc">Gemini annotates diff → security + perf audit</span>
+      <span class="cmd-badge" style="background:rgba(59,130,246,0.15);color:#3b82f6">REVIEW</span>
+    </div>
+    <div class="cmd-row">
+      <span class="cmd-code" style="color:#94a3b8">/local-debug</span>
+      <span class="cmd-desc">Local LLM only → zero data leaves the Mac Mini</span>
+      <span class="cmd-badge" style="background:rgba(100,116,139,0.15);color:#94a3b8">PRIVATE</span>
+    </div>
+  </div>
+</div>
+
+<!-- Legend -->
+<div class="sec">
+  <div class="sec-h">
+    <div class="sec-num" style="background:#475569">★</div>
+    <span class="sec-title" style="color:#94a3b8">Legend</span>
+    <div class="sec-line"></div>
+  </div>
+  <div class="legend">
+    <div class="leg-item"><div class="leg-dot" style="background:#fbbf24"></div>You (Access)</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#10b981"></div>OpenClaw (Router)</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#059669"></div>ChatGPT (Architect)</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#d97706"></div>Claude Code (Refactor)</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#3b82f6"></div>Gemini (IDE Agent)</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#8b5cf6"></div>Copilot (Inline)</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#64748b"></div>Local LLM (Private)</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#ec4899"></div>Memory (Persist)</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#06b6d4"></div>Cron (Auto)</div>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stats-row">
+  <div class="stat-card"><div class="stat-val" style="color:#8b5cf6">5</div><div class="stat-lbl">AI Models</div></div>
+  <div class="stat-card"><div class="stat-val" style="color:#10b981">24/7</div><div class="stat-lbl">Uptime</div></div>
+  <div class="stat-card"><div class="stat-val" style="color:#06b6d4">$0</div><div class="stat-lbl">Extra Infra</div></div>
+  <div class="stat-card"><div class="stat-val" style="color:#fbbf24">1000×</div><div class="stat-lbl">Multiplier</div></div>
+  <div class="stat-card"><div class="stat-val" style="color:#ec4899">∞</div><div class="stat-lbl">Privacy</div></div>
+</div>
+
+<div class="foot">
+  <p>"Your laptop is a remote control. The Mac Mini is the engine room."</p>
+  <div class="sig">DESIGNED BY CLAWD 🐾 · KODEKLOUD-INSPIRED ARCHITECTURE DIAGRAM</div>
+</div>
+
+</div>
+</body>
+</html>
