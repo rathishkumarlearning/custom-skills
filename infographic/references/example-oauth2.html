@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0b1120;color:#e2e8f0;font-family:'Inter',sans-serif;width:1080px;height:4200px;position:relative;overflow:hidden}
+body::before{content:'';position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(239,68,68,0.06) 1px,transparent 1px);
+  background-size:24px 24px}
+.orb{position:absolute;border-radius:50%}
+.o1{width:600px;height:600px;background:radial-gradient(circle,rgba(239,68,68,0.06),transparent 70%);top:-100px;right:-100px}
+.o2{width:500px;height:500px;background:radial-gradient(circle,rgba(249,115,22,0.05),transparent 70%);top:1500px;left:-100px}
+.o3{width:500px;height:500px;background:radial-gradient(circle,rgba(239,68,68,0.04),transparent 70%);top:3000px;right:-100px}
+.w{position:relative;z-index:1;padding:48px 44px}
+
+/* Header */
+.hdr{text-align:center;margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.hdr-badge{display:inline-block;padding:6px 18px;border-radius:6px;font-size:11px;letter-spacing:3px;font-weight:700;
+  background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.25);color:#fca5a5;margin-bottom:16px}
+.hdr h1{font-size:46px;font-weight:900;letter-spacing:-2px;line-height:1.1;
+  background:linear-gradient(135deg,#fca5a5,#fdba74,#fde68a);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hdr p{font-size:16px;color:#64748b;margin-top:12px;line-height:1.6}
+.hdr-learn{display:flex;gap:16px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+.hdr-pill{padding:6px 14px;border-radius:8px;font-size:11px;font-weight:600;letter-spacing:0.5px;
+  background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.15);color:#fca5a5}
+
+/* Section */
+.sec{position:relative;margin-bottom:36px;padding:28px;border-radius:16px;background:rgba(255,255,255,0.015);border:1px solid rgba(255,255,255,0.04)}
+.sec-bignum{position:absolute;right:24px;top:-8px;font-size:80px;font-weight:900;font-family:'JetBrains Mono',monospace;color:rgba(239,68,68,0.06);line-height:1}
+.sec-icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:12px}
+.sec h2{font-size:24px;font-weight:800;color:#f1f5f9;margin-bottom:4px}
+.sec .sub{font-size:13px;color:#64748b;margin-bottom:16px}
+
+/* Cards grid */
+.cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:16px 0}
+.card{padding:16px;border-radius:12px;text-align:center}
+.card-icon{font-size:28px;margin-bottom:8px}
+.card h5{font-size:14px;font-weight:700;margin-bottom:4px}
+.card p{font-size:11px;line-height:1.4}
+
+.cards-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+
+/* Color variants */
+.c-red{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.15)}
+.c-red .card-icon,.c-red h5{color:#ef4444}
+.c-red .sec-icon{background:rgba(239,68,68,0.15)}
+.c-red p{color:#94a3b8}
+
+.c-orange{background:rgba(249,115,22,0.08);border:1px solid rgba(249,115,22,0.15)}
+.c-orange h5{color:#f97316}.c-orange .sec-icon{background:rgba(249,115,22,0.15)}
+.c-orange p{color:#94a3b8}
+
+.c-amber{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.15)}
+.c-amber h5{color:#f59e0b}.c-amber .sec-icon{background:rgba(245,158,11,0.15)}
+.c-amber p{color:#94a3b8}
+
+.c-green{background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.15)}
+.c-green h5{color:#10b981}.c-green .sec-icon{background:rgba(16,185,129,0.15)}
+.c-green p{color:#94a3b8}
+
+.c-blue{background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.15)}
+.c-blue h5{color:#3b82f6}.c-blue .sec-icon{background:rgba(59,130,246,0.15)}
+.c-blue p{color:#94a3b8}
+
+.c-purple{background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.15)}
+.c-purple h5{color:#8b5cf6}.c-purple .sec-icon{background:rgba(139,92,246,0.15)}
+.c-purple p{color:#94a3b8}
+
+.c-gray{background:rgba(100,116,139,0.08);border:1px solid rgba(100,116,139,0.15)}
+.c-gray h5{color:#94a3b8}
+.c-gray p{color:#64748b}
+
+/* Flow */
+.flow{text-align:center;padding:6px 0}
+.flow-line{width:2px;height:20px;margin:0 auto;background:rgba(239,68,68,0.2);border-radius:1px}
+.flow-label{font-size:10px;font-weight:600;letter-spacing:2px;color:#ef4444;margin:4px 0}
+.flow-arrow{font-size:14px;color:rgba(239,68,68,0.4)}
+
+/* Takeaway */
+.takeaway{background:linear-gradient(135deg,rgba(239,68,68,0.08),rgba(249,115,22,0.05));
+  border-left:3px solid #ef4444;border-radius:0 12px 12px 0;padding:14px 18px;margin-top:16px}
+.takeaway p{font-size:13px;color:#cbd5e1;line-height:1.5}
+.takeaway strong{color:#fca5a5}
+
+/* Code block */
+.code{background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:16px;
+  font-family:'JetBrains Mono',monospace;font-size:12px;color:#e2e8f0;line-height:1.6;margin:12px 0;white-space:pre;overflow:hidden}
+.code .kw{color:#ef4444}.code .str{color:#fbbf24}.code .cmt{color:#64748b}
+
+/* VS comparison */
+.vs{display:grid;grid-template-columns:1fr 40px 1fr;gap:12px;align-items:stretch;margin:16px 0}
+.vs-card{padding:18px;border-radius:12px}
+.vs-badge{display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#475569}
+
+/* Timeline */
+.timeline{position:relative;padding-left:40px;margin:16px 0 16px 16px}
+.timeline::before{content:'';position:absolute;left:12px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,#ef4444,#f97316,#10b981)}
+.tl-item{position:relative;margin-bottom:16px}
+.tl-dot{position:absolute;left:-34px;top:4px;width:16px;height:16px;border-radius:50%;border:2px solid var(--c);background:#0b1120}
+.tl-item h5{font-size:14px;font-weight:700;color:var(--c)}
+.tl-item p{font-size:12px;color:#94a3b8;margin-top:2px}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+.stat{text-align:center;padding:18px 8px;border-radius:12px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04)}
+.stat-num{font-size:36px;font-weight:900}
+.stat-label{font-size:10px;color:#64748b;margin-top:4px;letter-spacing:1.5px;text-transform:uppercase}
+
+/* Footer */
+.foot{text-align:center;margin-top:32px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.04)}
+.foot p{font-size:12px;color:#475569}.foot .sig{font-size:10px;color:#334155;letter-spacing:1.5px;margin-top:8px}
+
+.divider{height:1px;margin:8px 0;background:linear-gradient(90deg,transparent,rgba(239,68,68,0.15),transparent)}
+</style></head>
+<body>
+<div class="o1 orb"></div><div class="o2 orb"></div><div class="o3 orb"></div>
+<div class="w">
+
+<div class="hdr">
+  <div class="hdr-badge">🔐 IDENTITY & ACCESS MANAGEMENT</div>
+  <h1>OAuth 2.0<br>Explained Visually</h1>
+  <p>The authorization framework that powers "Sign in with Google"<br>and protects 90% of modern APIs — in one infographic.</p>
+  <div class="hdr-learn">
+    <span class="hdr-pill">4 Grant Types</span>
+    <span class="hdr-pill">Token Lifecycle</span>
+    <span class="hdr-pill">Real-World Flows</span>
+    <span class="hdr-pill">Security Best Practices</span>
+    <span class="hdr-pill">OIDC vs OAuth</span>
+  </div>
+</div>
+
+<!-- Section 1: What & Why -->
+<div class="sec">
+  <div class="sec-bignum">01</div>
+  <div class="sec-icon c-red" style="background:rgba(239,68,68,0.15)">🔑</div>
+  <h2>What is OAuth 2.0?</h2>
+  <div class="sub">Authorization framework — NOT authentication</div>
+  <p style="font-size:14px;color:#94a3b8;line-height:1.6;margin-bottom:16px">
+    OAuth 2.0 lets a user <strong style="color:#fca5a5">grant limited access</strong> to their resources on one service, to another service — <strong style="color:#fca5a5">without sharing their password</strong>. Think: "Allow Spotify to read your Facebook friends list."
+  </p>
+  <div class="vs">
+    <div class="vs-card c-red" style="text-align:center">
+      <h5 style="color:#ef4444;font-size:16px;margin-bottom:8px">❌ Without OAuth</h5>
+      <p style="font-size:12px;color:#94a3b8">"Give me your Google password<br>so I can read your contacts"</p>
+      <p style="font-size:11px;color:#ef4444;margin-top:8px;font-weight:600">DANGEROUS — Full access, no revoke</p>
+    </div>
+    <div class="vs-badge">VS</div>
+    <div class="vs-card c-green" style="text-align:center">
+      <h5 style="color:#10b981;font-size:16px;margin-bottom:8px">✅ With OAuth</h5>
+      <p style="font-size:12px;color:#94a3b8">"Google, give this app a token<br>to read ONLY my contacts"</p>
+      <p style="font-size:11px;color:#10b981;margin-top:8px;font-weight:600">SAFE — Scoped, time-limited, revocable</p>
+    </div>
+  </div>
+  <div class="takeaway"><p>💡 <strong>Key insight:</strong> OAuth separates "who you are" from "what you can access." It's a valet key — not the master key.</p></div>
+</div>
+
+<div class="flow"><div class="flow-line"></div><div class="flow-label">THE PLAYERS</div><div class="flow-arrow">▼</div></div>
+
+<!-- Section 2: The 4 Roles -->
+<div class="sec">
+  <div class="sec-bignum">02</div>
+  <div class="sec-icon" style="background:rgba(249,115,22,0.15)">👥</div>
+  <h2>The 4 Roles</h2>
+  <div class="sub">Every OAuth flow has exactly these four actors</div>
+  <div class="cards" style="grid-template-columns:1fr 1fr">
+    <div class="card c-orange">
+      <div class="card-icon">👤</div>
+      <h5>Resource Owner</h5>
+      <p>The user who owns the data.<br>"Yes, Spotify can see my friends."</p>
+    </div>
+    <div class="card c-red">
+      <div class="card-icon">📱</div>
+      <h5>Client</h5>
+      <p>The app requesting access.<br>Spotify, Notion, Slack, etc.</p>
+    </div>
+    <div class="card c-blue">
+      <div class="card-icon">🏛️</div>
+      <h5>Authorization Server</h5>
+      <p>Issues tokens after consent.<br>Google's auth endpoint.</p>
+    </div>
+    <div class="card c-green">
+      <div class="card-icon">📦</div>
+      <h5>Resource Server</h5>
+      <p>Holds the protected data.<br>Google's Contacts API.</p>
+    </div>
+  </div>
+  <div class="takeaway"><p>💡 <strong>Remember:</strong> Auth Server and Resource Server are often the same company (Google) but logically separate. The Auth Server handles consent; the Resource Server validates tokens.</p></div>
+</div>
+
+<div class="flow"><div class="flow-line"></div><div class="flow-label">THE MAIN FLOW</div><div class="flow-arrow">▼</div></div>
+
+<!-- Section 3: Authorization Code Flow -->
+<div class="sec">
+  <div class="sec-bignum">03</div>
+  <div class="sec-icon" style="background:rgba(16,185,129,0.15)">🔄</div>
+  <h2>Authorization Code Flow</h2>
+  <div class="sub">The most secure & most common grant type — used by 80% of apps</div>
+  <div class="timeline">
+    <div class="tl-item" style="--c:#ef4444"><div class="tl-dot"></div><h5>1. User clicks "Sign in with Google"</h5><p>Client redirects to Google's /authorize endpoint with client_id + scope + redirect_uri</p></div>
+    <div class="tl-item" style="--c:#f97316"><div class="tl-dot"></div><h5>2. User sees consent screen</h5><p>"Spotify wants to: View your contacts, Read your profile" — User clicks Allow</p></div>
+    <div class="tl-item" style="--c:#f59e0b"><div class="tl-dot"></div><h5>3. Google redirects back with auth code</h5><p>redirect_uri?code=abc123 — This code is SHORT-LIVED (60 seconds)</p></div>
+    <div class="tl-item" style="--c:#10b981"><div class="tl-dot"></div><h5>4. Client exchanges code for tokens</h5><p>POST /token with code + client_secret → receives access_token + refresh_token</p></div>
+    <div class="tl-item" style="--c:#06b6d4"><div class="tl-dot"></div><h5>5. Client calls API with access token</h5><p>GET /contacts with Authorization: Bearer &lt;token&gt; → gets protected data</p></div>
+  </div>
+  <div class="code"><span class="cmt">// Step 4: Exchange code for token</span>
+POST /oauth/token
+{
+  <span class="str">"grant_type"</span>: <span class="str">"authorization_code"</span>,
+  <span class="str">"code"</span>: <span class="str">"abc123"</span>,
+  <span class="str">"client_id"</span>: <span class="str">"spotify-app"</span>,
+  <span class="str">"client_secret"</span>: <span class="str">"s3cret"</span>,
+  <span class="str">"redirect_uri"</span>: <span class="str">"https://spotify.com/callback"</span>
+}</div>
+  <div class="takeaway"><p>💡 <strong>Why the extra step?</strong> The auth code travels through the browser (visible). The token exchange happens server-to-server (hidden). This keeps the access_token safe from browser-based attacks.</p></div>
+</div>
+
+<div class="flow"><div class="flow-line"></div><div class="flow-label">ALL GRANT TYPES</div><div class="flow-arrow">▼</div></div>
+
+<!-- Section 4: 4 Grant Types -->
+<div class="sec">
+  <div class="sec-bignum">04</div>
+  <div class="sec-icon" style="background:rgba(59,130,246,0.15)">🎯</div>
+  <h2>The 4 Grant Types</h2>
+  <div class="sub">Each designed for a different scenario</div>
+  <div class="cards" style="grid-template-columns:1fr 1fr">
+    <div class="card c-green">
+      <div class="card-icon">🏆</div>
+      <h5>Authorization Code</h5>
+      <p>Web apps with backend<br><strong style="color:#10b981">Most secure · Most common</strong><br>Uses code → token exchange</p>
+    </div>
+    <div class="card c-blue">
+      <div class="card-icon">📱</div>
+      <h5>Auth Code + PKCE</h5>
+      <p>Mobile & SPA apps<br><strong style="color:#3b82f6">No client_secret needed</strong><br>Uses code_verifier challenge</p>
+    </div>
+    <div class="card c-orange">
+      <div class="card-icon">🤖</div>
+      <h5>Client Credentials</h5>
+      <p>Machine-to-machine<br><strong style="color:#f97316">No user involved</strong><br>Service account → service API</p>
+    </div>
+    <div class="card c-gray">
+      <div class="card-icon">⚠️</div>
+      <h5>Implicit (Deprecated)</h5>
+      <p>Old SPA pattern<br><strong style="color:#94a3b8">Token in URL = unsafe</strong><br>Use PKCE instead</p>
+    </div>
+  </div>
+</div>
+
+<div class="flow"><div class="flow-line"></div><div class="flow-label">TOKEN TYPES</div><div class="flow-arrow">▼</div></div>
+
+<!-- Section 5: Tokens -->
+<div class="sec">
+  <div class="sec-bignum">05</div>
+  <div class="sec-icon" style="background:rgba(139,92,246,0.15)">🎫</div>
+  <h2>Token Lifecycle</h2>
+  <div class="sub">Two tokens, different purposes</div>
+  <div class="vs">
+    <div class="vs-card c-red" style="padding:20px">
+      <h5 style="color:#ef4444;font-size:16px;margin-bottom:8px">🔓 Access Token</h5>
+      <p style="font-size:12px;color:#94a3b8;line-height:1.6">
+        <strong style="color:#fca5a5">Lifetime:</strong> 15 min – 1 hour<br>
+        <strong style="color:#fca5a5">Format:</strong> JWT or opaque<br>
+        <strong style="color:#fca5a5">Purpose:</strong> API authorization<br>
+        <strong style="color:#fca5a5">Sent via:</strong> Authorization header
+      </p>
+    </div>
+    <div class="vs-badge">+</div>
+    <div class="vs-card c-green" style="padding:20px">
+      <h5 style="color:#10b981;font-size:16px;margin-bottom:8px">🔄 Refresh Token</h5>
+      <p style="font-size:12px;color:#94a3b8;line-height:1.6">
+        <strong style="color:#6ee7b7">Lifetime:</strong> Days to months<br>
+        <strong style="color:#6ee7b7">Format:</strong> Always opaque<br>
+        <strong style="color:#6ee7b7">Purpose:</strong> Get new access tokens<br>
+        <strong style="color:#6ee7b7">Stored:</strong> Server-side only
+      </p>
+    </div>
+  </div>
+  <div class="takeaway"><p>💡 <strong>Why short-lived access tokens?</strong> If stolen, damage is limited to minutes. The refresh token (stored securely server-side) gets new access tokens silently. Users never re-login.</p></div>
+</div>
+
+<div class="flow"><div class="flow-line"></div><div class="flow-label">SCOPES</div><div class="flow-arrow">▼</div></div>
+
+<!-- Section 6: Scopes -->
+<div class="sec">
+  <div class="sec-bignum">06</div>
+  <div class="sec-icon" style="background:rgba(245,158,11,0.15)">🎚️</div>
+  <h2>Scopes — Granular Permissions</h2>
+  <div class="sub">The "what" of authorization — not all-or-nothing</div>
+  <div class="code"><span class="cmt">// Request only what you need (principle of least privilege)</span>
+scope=<span class="str">"read:contacts"</span>        <span class="cmt">// ✅ Read contacts only</span>
+scope=<span class="str">"read:contacts write:calendar"</span> <span class="cmt">// ✅ Contacts + calendar</span>
+scope=<span class="str">"admin"</span>                 <span class="cmt">// ❌ Too broad — users will deny</span></div>
+  <div class="cards">
+    <div class="card c-green"><h5>✅ Good Scopes</h5><p>read:profile<br>read:email<br>write:posts</p></div>
+    <div class="card c-orange"><h5>⚠️ Broad Scopes</h5><p>user:all<br>admin:full<br>offline_access</p></div>
+    <div class="card c-red"><h5>❌ Over-Scoping</h5><p>"Give me everything"<br>Users won't trust you<br>Violates least privilege</p></div>
+  </div>
+</div>
+
+<div class="flow"><div class="flow-line"></div><div class="flow-label">OAUTH vs OIDC</div><div class="flow-arrow">▼</div></div>
+
+<!-- Section 7: OAuth vs OIDC -->
+<div class="sec">
+  <div class="sec-bignum">07</div>
+  <div class="sec-icon" style="background:rgba(6,182,212,0.15)">🆔</div>
+  <h2>OAuth 2.0 vs OpenID Connect</h2>
+  <div class="sub">OAuth = authorization · OIDC = authentication (built on top of OAuth)</div>
+  <div class="vs">
+    <div class="vs-card c-orange" style="padding:20px">
+      <h5 style="color:#f97316;font-size:16px;margin-bottom:8px">OAuth 2.0</h5>
+      <p style="font-size:12px;color:#94a3b8;line-height:1.8">
+        <strong style="color:#fdba74">Answers:</strong> "What can this app do?"<br>
+        <strong style="color:#fdba74">Token:</strong> access_token<br>
+        <strong style="color:#fdba74">Use:</strong> API access, data sharing<br>
+        <strong style="color:#fdba74">Example:</strong> "Let Slack read my calendar"
+      </p>
+    </div>
+    <div class="vs-badge">+</div>
+    <div class="vs-card c-blue" style="padding:20px">
+      <h5 style="color:#3b82f6;font-size:16px;margin-bottom:8px">OpenID Connect</h5>
+      <p style="font-size:12px;color:#94a3b8;line-height:1.8">
+        <strong style="color:#93c5fd">Answers:</strong> "Who is this user?"<br>
+        <strong style="color:#93c5fd">Token:</strong> id_token (JWT)<br>
+        <strong style="color:#93c5fd">Use:</strong> Login, identity verification<br>
+        <strong style="color:#93c5fd">Example:</strong> "Sign in with Google"
+      </p>
+    </div>
+  </div>
+  <div class="takeaway"><p>💡 <strong>Simple rule:</strong> Need to <strong>access an API</strong>? Use OAuth. Need to <strong>log a user in</strong>? Use OIDC. Most apps use <strong>both together</strong>.</p></div>
+</div>
+
+<div class="flow"><div class="flow-line"></div><div class="flow-label">SECURITY</div><div class="flow-arrow">▼</div></div>
+
+<!-- Section 8: Security -->
+<div class="sec">
+  <div class="sec-bignum">08</div>
+  <div class="sec-icon" style="background:rgba(239,68,68,0.15)">🛡️</div>
+  <h2>Security Best Practices</h2>
+  <div class="sub">Common attacks and how to prevent them</div>
+  <div class="cards" style="grid-template-columns:1fr 1fr">
+    <div class="card c-red"><div class="card-icon">🎭</div><h5>CSRF Attack</h5><p>Attacker forges auth callback<br><strong style="color:#ef4444">Fix: Use state parameter</strong></p></div>
+    <div class="card c-orange"><div class="card-icon">🔗</div><h5>Token Leakage</h5><p>Token exposed in URL/logs<br><strong style="color:#f97316">Fix: Use PKCE, not Implicit</strong></p></div>
+    <div class="card c-purple"><div class="card-icon">🔄</div><h5>Token Replay</h5><p>Stolen token reused<br><strong style="color:#8b5cf6">Fix: Short expiry + rotation</strong></p></div>
+    <div class="card c-blue"><div class="card-icon">🎯</div><h5>Redirect Attack</h5><p>Malicious redirect_uri<br><strong style="color:#3b82f6">Fix: Exact URI matching</strong></p></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stat"><div class="stat-num" style="color:#ef4444">90%</div><div class="stat-label">APIs Use OAuth</div></div>
+  <div class="stat"><div class="stat-num" style="color:#f97316">4</div><div class="stat-label">Grant Types</div></div>
+  <div class="stat"><div class="stat-num" style="color:#10b981">2</div><div class="stat-label">Token Types</div></div>
+  <div class="stat"><div class="stat-num" style="color:#3b82f6">RFC 6749</div><div class="stat-label">Standard</div></div>
+</div>
+
+<div class="foot">
+  <p>"OAuth doesn't authenticate users — it authorizes apps. OIDC authenticates users. Know the difference."</p>
+  <div class="sig">OAUTH 2.0 INFOGRAPHIC · CLAWD 🐾 · IAM DEEP DIVE SERIES</div>
+</div>
+
+</div></body></html>
